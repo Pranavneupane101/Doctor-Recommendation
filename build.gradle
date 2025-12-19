@@ -1,0 +1,82 @@
+plugins {
+    id("io.micronaut.application") version "4.6.1"
+    id("com.gradleup.shadow") version "8.3.9"
+    id("io.micronaut.aot") version "4.6.1"
+}
+
+version = "0.1"
+group = "com.doctor"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
+    compileOnly("io.micronaut:micronaut-http-client")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    testImplementation("io.micronaut:micronaut-http-client")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("io.micronaut.cassandra:micronaut-cassandra")
+
+    implementation 'io.nats:jnats:2.24.1'
+    runtimeOnly("org.yaml:snakeyaml")
+
+    implementation "io.micronaut.grpc:micronaut-grpc-server-runtime"
+    implementation "io.micronaut.grpc:micronaut-grpc-runtime"
+
+    implementation "javax.annotation:javax.annotation-api:1.3.2"
+
+    implementation 'redis.clients:jedis:5.1.0'
+    implementation 'org.apache.commons:commons-pool2:2.12.0'
+
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation "javax.annotation:javax.annotation-api:1.3.2"
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation 'ch.hsr:geohash:1.4.0'
+
+}
+
+
+application {
+    mainClass = "com.doctor.Application"
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+
+graalvmNative.toolchainDetection = false
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.doctor.*")
+    }
+    aot {
+        // Please review carefully the optimizations enabled below
+        // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
+}
+
+
+tasks.named("dockerfileNative") {
+    jdkVersion = "17"
+            }
+
+
