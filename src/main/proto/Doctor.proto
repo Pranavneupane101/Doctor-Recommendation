@@ -1,0 +1,33 @@
+syntax="proto3";
+option java_multiple_files= true;
+option java_package="com.gRPC.doctorRecommendation";
+option java_outer_classname="DoctorgRPC";
+
+message userRequest{
+
+  string userId=1;
+  string name=2;
+  string doctorType=3;
+  string time=4;
+  double latitude=5;
+  double longitude=6;
+};
+
+message UserResponse{
+
+  string designation=1;
+  string doctorName=2;
+  repeated string experties=3;
+  string experience=4;
+  double latitude=5;
+  double longitude=6;
+  double distance=7;
+};
+message ListResponse{
+  repeated  UserResponse response=1;
+}
+
+service UserService {
+  rpc getDoctors(userRequest) returns(ListResponse);
+
+};

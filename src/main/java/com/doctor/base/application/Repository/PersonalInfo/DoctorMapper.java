@@ -11,10 +11,14 @@ public class DoctorMapper {
         doctorEntity.setDoctorName(doctor.getDoctorName());
         doctorEntity.setExperience(doctor.getExperience());
         doctorEntity.setFee(doctor.getFee());
-        doctorEntity.setExperties(doctor.getExperties().name());
-        doctorEntity.setLocation(doctor.getLocation());
+        doctorEntity.setExperties(doctor.getExperties());
+        doctorEntity.setLatitude(doctor.getLatitude());
+        doctorEntity.setLongitude(doctor.getLongitude());
+        doctorEntity.setPhone_no(doctor.getPhone_no());
+
         return doctorEntity;
     }
+
     public static Doctor fromEntity(DoctorEntity doctorEntity) {
         Doctor doctor = new Doctor();
         doctor.setDoctorId(doctorEntity.getDoctorId());
@@ -22,8 +26,10 @@ public class DoctorMapper {
         doctor.setDoctorName(doctorEntity.getDoctorName());
         doctor.setExperience(doctorEntity.getExperience());
         doctor.setFee(doctorEntity.getFee());
-        doctor.setExperties(Doctor.Experties.valueOf(doctorEntity.getExperties()));
-        doctor.setLocation(doctorEntity.getLocation());
+        doctor.setExperties(doctorEntity.getExperties());
+        doctor.setLatitude(doctorEntity.getLatitude());
+        doctor.setLongitude(doctorEntity.getLongitude());
+
         return doctor;
     }
 }

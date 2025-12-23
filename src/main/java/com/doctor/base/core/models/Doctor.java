@@ -3,34 +3,26 @@ package com.doctor.base.core.models;
 
 import io.micronaut.serde.annotation.Serdeable;
 
-@Serdeable
+import java.util.Set;
+
+@Serdeable // for restapi
 public class Doctor {
     private String doctorId;
     private String doctorDesignation;
     private String doctorName;
-    private Experties experties;
+    private Set<String> experties;
     private String experience;
     private String fee;
-    private String location;
+    private double latitude;
+    private double longitude;
+    private String phone_no;
 
+    public String getPhone_no() {
+        return phone_no;
+    }
 
-
-    public enum Experties {
-        GENERAL_PHYSICIAN,
-        CARDIOLOGIST,
-        DERMATOLOGIST,
-        NEUROLOGIST,
-        ORTHOPEDIC,
-        PEDIATRICIAN,
-        PSYCHIATRIST,
-        GYNECOLOGIST,
-        OPHTHALMOLOGIST,
-        ENT_SPECIALIST,
-        DENTIST,
-        ONCOLOGIST,
-        RADIOLOGIST,
-        UROLOGIST,
-        ENDOCRINOLOGIST
+    public void setPhone_no(String phone_no) {
+        this.phone_no = phone_no;
     }
 
     public String getDoctorDesignation() {
@@ -49,11 +41,11 @@ public class Doctor {
         this.doctorName = doctorName;
     }
 
-    public Experties getExperties() {
+    public Set<String> getExperties() {
         return experties;
     }
 
-    public void setExperties(Experties experties) {
+    public void setExperties(Set<String> experties) {
         this.experties = experties;
     }
 
@@ -81,13 +73,19 @@ public class Doctor {
         this.fee = fee;
     }
 
-    public String getLocation() {
-        return location;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }

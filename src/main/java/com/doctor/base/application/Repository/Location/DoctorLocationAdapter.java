@@ -34,4 +34,11 @@ import jakarta.inject.Singleton;
     public ResultSet getDoctorBroadLocations(String experties, String geoHash5) {
        return doctorLocationDao.getDoctorLocationListBroad(experties,geoHash5);
     }
+
+    @Override
+    public boolean DeleteLocation(String geohash5, String experties, String geohash6, String doctorId) {
+        return doctorLocationDao.deleteDoctorLocation(geohash5,experties,geohash6,doctorId);
+    }
+
+
 }

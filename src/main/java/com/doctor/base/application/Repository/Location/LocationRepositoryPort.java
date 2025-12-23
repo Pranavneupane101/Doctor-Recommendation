@@ -12,6 +12,10 @@ public interface LocationRepositoryPort {
     boolean DeleteLocation();
     ResultSet getDoctorNarrowLocations(String experties, String geoHash5,String geoHash6);
     ResultSet getDoctorBroadLocations(String experties, String geoHash5);
+    boolean DeleteLocation(String geohash5,
+                                    String experties,
+                                    String geohash6,
+                                    String doctorId);
 }
 
 

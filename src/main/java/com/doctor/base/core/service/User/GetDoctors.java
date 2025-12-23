@@ -21,9 +21,11 @@ class GetDoctors {
 
         Set<DoctorLocation> doctors = new LinkedHashSet<>();
         ResultSet rs = locationRepositoryPort.getDoctorBroadLocations(experties,geoHash5);
+
+
             for (Row row : rs) {
                 DoctorLocation doctor = new DoctorLocation();
-                doctor.setDoctorId(row.getUuid("doctorid").toString());
+                doctor.setDoctorId(row.getString("doctorid"));
                 doctor.setLatitude(row.getDouble("latitude"));
                 doctor.setLongitude(row.getDouble("longitude"));
                 doctor.setExperties(row.getString("experties"));
@@ -31,24 +33,27 @@ class GetDoctors {
                 doctor.setHashcode6(row.getString("geohash6"));
                 doctors.add(doctor);
             }
+
             return doctors;
     }
 
-    public Set<DoctorLocation> getDoctorNarrowList(String experties,String geoHash6,String geoHash5) {
+    public Set<DoctorLocation> getDoctorNarrowList(String experties,String geoHash5,String geoHash6) {
 
         Set<DoctorLocation> doctors = new LinkedHashSet<>();
         ResultSet rs = locationRepositoryPort.getDoctorNarrowLocations(experties,geoHash5,geoHash6);
         for (Row row : rs) {
                 DoctorLocation doctor = new DoctorLocation();
-                doctor.setDoctorId(row.getUuid("doctorid").toString());
+                doctor.setDoctorId(row.getString("doctorid"));
                 doctor.setLatitude(row.getDouble("latitude"));
                 doctor.setLongitude(row.getDouble("longitude"));
                 doctor.setExperties(row.getString("experties"));
                 doctor.setHashcode5(row.getString("geohash5"));
                 doctor.setHashcode6(row.getString("geohash6"));
+
                 doctors.add(doctor);
 
         }
+
         return doctors;
     }
 }

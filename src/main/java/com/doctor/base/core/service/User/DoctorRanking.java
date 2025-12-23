@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
     @Inject
     DoctorRepositoryPort doctorRepositoryPort;
     public Map<DoctorLocation,Double> getRanking(User user, List<DoctorLocation> doctors){
-
+        // Rank the doctors based on the Hiversinne distance and return the sorted map of DoctorLocation and Distance.
         Map<DoctorLocation,Double> doctorLocations=new HashMap<>();
 
         for(DoctorLocation doctorLocation:doctors){

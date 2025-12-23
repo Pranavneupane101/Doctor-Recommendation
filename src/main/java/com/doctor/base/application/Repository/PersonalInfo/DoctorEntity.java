@@ -1,21 +1,45 @@
 package com.doctor.base.application.Repository.PersonalInfo;
 
 
-
+import java.util.Set;
 
 public class DoctorEntity {
 
         private String doctorId;
         private String doctorDesignation;
         private String doctorName;
-        private String experties;
+        private Set<String> experties;
         private String experience;
         private String fee;
-        private String location;
+        private double latitude;
+        private double  longitude;
+        private String phone_no;
 
+    public double getLatitude() {
+        return latitude;
+    }
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
 
-        public String getDoctorDesignation() {
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getPhone_no() {
+        return phone_no;
+    }
+
+    public void setPhone_no(String phone_no) {
+        this.phone_no = phone_no;
+    }
+
+    public String getDoctorDesignation() {
             return doctorDesignation;
         }
 
@@ -31,11 +55,11 @@ public class DoctorEntity {
             this.doctorName = doctorName;
         }
 
-    public String getExperties() {
+    public Set<String> getExperties() {
         return experties;
     }
 
-    public void setExperties(String experties) {
+    public void setExperties(Set<String> experties) {
         this.experties = experties;
     }
 
@@ -63,13 +87,7 @@ public class DoctorEntity {
             this.fee = fee;
         }
 
-        public String getLocation() {
-            return location;
-        }
 
-        public void setLocation(String location) {
-            this.location = location;
-        }
     }
 
 

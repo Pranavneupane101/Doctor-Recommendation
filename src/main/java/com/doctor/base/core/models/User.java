@@ -8,10 +8,9 @@ public class User {
 
     String userId;
     String name;
-    String DoctorType;
+    String doctorType;
     LocalTime  time;
     private String hashcode;
-
     private double latitude;
     private double longitude;
 
@@ -32,11 +31,11 @@ public class User {
     }
 
     public String getDoctorType() {
-        return DoctorType;
+        return doctorType;
     }
 
     public void setDoctorType(String doctorType) {
-        DoctorType = doctorType;
+        this.doctorType = doctorType;
     }
 
     public LocalTime getTime() {

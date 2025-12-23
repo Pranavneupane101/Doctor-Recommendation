@@ -1,4 +1,4 @@
-package com.doctor.base.application.Controller;
+package com.doctor.base.application.Repository.PersonalInfo;
 
 import com.doctor.base.core.models.Doctor;
 import io.micronaut.serde.annotation.Serdeable;

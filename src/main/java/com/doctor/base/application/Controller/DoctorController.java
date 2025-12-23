@@ -31,11 +31,24 @@ public class DoctorController {
     }
     @Post("/get")
     public HttpResponse<Doctor>GetDoctor(@Body FindDoctorDTO dto){
-        Doctor doctor=doctorService.findDoctor(dto.getDoctor_id(),dto.getExperties());
+        Doctor doctor=doctorService.findDoctor(dto.getDoctor_id() );
         if(doctor!=null){
             return HttpResponse.ok().body(doctor);
         }else{
             return HttpResponse.notFound();
+        }
+    }
+
+    @Delete("/delete/{doctorId}")
+    public HttpResponse<String>DeleteDoctor(@PathVariable String doctorId){
+
+        boolean status=doctorService.DeleteDoctor(doctorId);
+        if(status){
+            return HttpResponse.ok("Success");
+
+        }else   {
+            return HttpResponse.notFound();
+
         }
     }
 

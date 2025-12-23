@@ -1,6 +1,7 @@
 package com.doctor.base.application.Controller;
 
 
+import com.doctor.base.application.Repository.PersonalInfo.DoctorDistanceResponseDTO;
 import com.doctor.base.core.models.User;
 import com.doctor.base.core.service.User.UserService;
 import io.micronaut.http.annotation.Body;
@@ -16,6 +17,8 @@ public class UserRequest {
 
     @Post("/get")
     public  List<DoctorDistanceResponseDTO> getDoctors(@Body User user) {
+
+
         return userService.getDoctorList(user);
     }
 }

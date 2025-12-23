@@ -24,8 +24,8 @@ class DoctorAdaptor implements DoctorRepositoryPort {
     }
 
     @Override
-    public Doctor FindDoctor(String doctor_id,String experties) {
-        DoctorEntity entity=doctorDao.getDoctorById(doctor_id,experties);
+    public Doctor FindDoctor(String doctor_id) {
+        DoctorEntity entity=doctorDao.getDoctorById(doctor_id);
         if(entity==null){
             return null;
         }
@@ -34,6 +34,6 @@ class DoctorAdaptor implements DoctorRepositoryPort {
 
     @Override
     public boolean DeleteDoctor(String doctorId) {
-        return false;
+        return doctorDao.deleteDoctor(doctorId);
     }
 }

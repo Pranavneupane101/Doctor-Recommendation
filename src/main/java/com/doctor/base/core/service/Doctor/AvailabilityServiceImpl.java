@@ -20,4 +20,5 @@ public class AvailabilityServiceImpl implements AvailabilityService{
     public boolean UpdateAvailability(Availability availability) {
      return  availablityPort.UpdateAvailability(availability);
     }
+
 }

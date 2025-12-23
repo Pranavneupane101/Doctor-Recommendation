@@ -16,14 +16,14 @@ import java.util.UUID;
         CqlSession session=connection.getConnection();
         String insertQuery =
                 "INSERT INTO doctor_location (" +
-                        "experties, geohash5,geohash6, doctorId, latitude, longitude" +
-                        ") VALUES (?, ?, ?, ?, ?,?)";
+                        "geohash5, experties, geohash6, doctorid, latitude, longitude" +
+                        ") VALUES (?, ?, ?, ?, ?, ?)";
 
         return session.execute(session.prepare(insertQuery).bind(
-                doctor.getExperties(),
                 doctor.getHashcode5(),
+                doctor.getExperties(),
                 doctor.getHashcode6(),
-                UUID.fromString(doctor.getDoctorId()),
+                doctor.getDoctorId(),
                 doctor.getLatitude(),
                 doctor.getLongitude()
         )).wasApplied();
@@ -31,40 +31,61 @@ import java.util.UUID;
 
     public boolean UpdateDoctorLocation(LocationEntity doctor){
 
+        CqlSession session = connection.getConnection();
+
         String updateQuery =
                 "UPDATE doctor_location SET " +
                         "latitude = ?, longitude = ? " +
-                        "WHERE experties = ? AND geohash5 = ? AND geohash6=? AND doctorId = ?";
-        CqlSession session=connection.getConnection();
+                        "WHERE geohash5 = ? AND experties = ? AND geohash6 = ? AND doctorid = ?";
 
         return session.execute(session.prepare(updateQuery).bind(
                 doctor.getLatitude(),
                 doctor.getLongitude(),
-                doctor.getExperties(),
                 doctor.getHashcode5(),
+                doctor.getExperties(),
                 doctor.getHashcode6(),
-                doctor.getDoctorId(),
-                UUID.fromString(doctor.getDoctorId())
-
+                 doctor.getDoctorId()
         )).wasApplied();
 
     }
+    public boolean deleteDoctorLocation(String geohash5,
+                                     String experties,
+                                     String geohash6,
+                                     String doctorId) {
 
+        CqlSession session = connection.getConnection();
 
-    public  ResultSet  getDoctorLocationListBroad (String experties, String geohash5){
-        CqlSession session=connection.getConnection();
         String query =
-                "SELECT * FROM doctor_location WHERE experties = ? AND geohash5 = ?";
-        return  session.execute(session.prepare(query)
-                .bind(experties,geohash5));
+                "DELETE FROM doctor_location " +
+                        "WHERE geohash5 = ? AND experties = ? AND geohash6 = ? AND doctorid = ?";
+
+        return session.execute(session.prepare(query)
+                .bind(geohash5, experties, geohash6, doctorId)).wasApplied();
     }
 
-    public  ResultSet  getDoctorLocationListNarrow(String experties, String geohash5,String geohash6){
-        CqlSession session=connection.getConnection();
+
+    public ResultSet getDoctorLocationListBroad(String experties, String geohash5) {
+        CqlSession session = connection.getConnection();
+
         String query =
-                "SELECT * FROM doctor_location WHERE experties = ? AND geohash5 = ? AND geohash6 = ?";
-        return  session.execute(session.prepare(query)
-                .bind(experties,geohash5,geohash6));
+                "SELECT * FROM doctor_location " +
+                        "WHERE geohash5 = ? AND experties = ?";
+
+        return session.execute(session.prepare(query)
+                .bind(geohash5, experties));
+    }
+
+    public ResultSet getDoctorLocationListNarrow(
+            String experties, String geohash5, String geohash6) {
+
+        CqlSession session = connection.getConnection();
+
+        String query =
+                "SELECT * FROM doctor_location " +
+                        "WHERE geohash5 = ? AND experties = ? AND geohash6 = ?";
+
+        return session.execute(session.prepare(query)
+                .bind(geohash5, experties, geohash6));
     }
 
 }

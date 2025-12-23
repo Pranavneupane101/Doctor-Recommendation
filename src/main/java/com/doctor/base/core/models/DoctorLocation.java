@@ -2,6 +2,8 @@ package com.doctor.base.core.models;
 
 import io.micronaut.serde.annotation.Serdeable;
 
+import java.util.Objects;
+
 @Serdeable
 public class DoctorLocation {
     private String doctorId;
@@ -58,5 +60,18 @@ public class DoctorLocation {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DoctorLocation that = (DoctorLocation) o;
+        return Objects.equals(doctorId, that.doctorId);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(doctorId);
+    };
 }
