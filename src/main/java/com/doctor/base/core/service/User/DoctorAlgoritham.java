@@ -8,7 +8,7 @@ import jakarta.inject.Singleton;
 
 import java.util.*;
 @Singleton
-class DoctorAlgoritham {
+public class DoctorAlgoritham {
     private static final int NUMBER_OF_DOCTORS=10;
     @Inject
     GetDoctors getdoctors;

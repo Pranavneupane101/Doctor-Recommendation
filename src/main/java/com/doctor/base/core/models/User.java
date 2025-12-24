@@ -1,15 +1,17 @@
 package com.doctor.base.core.models;
 
+
+
 import io.micronaut.serde.annotation.Serdeable;
 
 import java.time.LocalTime;
 @Serdeable
 public class User {
 
-    String userId;
-    String name;
-    String doctorType;
-    LocalTime  time;
+    private String userId;
+    private String name;
+    private String doctorType;
+    private LocalTime  time;
     private String hashcode;
     private double latitude;
     private double longitude;

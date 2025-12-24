@@ -30,9 +30,7 @@ import java.util.List;
         List<UserResponse> userResponses = new ArrayList<>();
 
         for(DoctorDistanceResponseDTO dto:  sortedDTO){
-
-
-           userResponses.add( UserResponse.newBuilder()
+            userResponses.add( UserResponse.newBuilder()
                     .setDoctorName(dto.getDoctor().getDoctorName())
                     .setDistance(dto.getDistance())
                     .setDesignation(dto.getDoctor().getDoctorDesignation())
@@ -40,7 +38,12 @@ import java.util.List;
                     .setLongitude(dto.getDoctor().getLongitude())
                     .addAllExperties(dto.getDoctor().getExperties())
                     .setExperience(dto.getDoctor().getExperience())
-                           .setPhoneNo(dto.getDoctor().getPhone_no())
+                     .setPhoneNo(dto.getDoctor().getPhone_no())
+                     .addAllAppointments(
+                                   dto.getAvailability().getAppointments().stream().map(LocalTime::toString).toList())
+                     .setAvailableFrom(dto.getAvailability().getAvailablefrom().toString())
+                     .setAvailableTo(dto.getAvailability().getAvailableTo().toString())
+                     .setDate(dto.getAvailability().getDate().toString())
                     .build());
         }
 

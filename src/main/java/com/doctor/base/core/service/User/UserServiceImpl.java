@@ -1,17 +1,18 @@
 package com.doctor.base.core.service.User;
 
-
-
 import com.doctor.base.application.Repository.PersonalInfo.DoctorDistanceResponseDTO;
 import com.doctor.base.application.GeoHash.GeoHashGeneratorPort;
 import com.doctor.base.application.Repository.PersonalInfo.DoctorRepositoryPort;
+import com.doctor.base.core.models.Availability;
 import com.doctor.base.core.models.Doctor;
 import com.doctor.base.core.models.DoctorLocation;
 import com.doctor.base.core.models.User;
+import com.doctor.base.core.service.Doctor.AvailabilityService;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -30,28 +31,33 @@ import java.util.stream.Collectors;
     DoctorRanking doctorRanking;
     @Inject
     DoctorRepositoryPort doctorRepositoryPort2;
+    @Inject
+     CheckAvailability checkAvailability;
+    @Inject
+    AvailabilityService availabilityService;
 
     @Override
     public List<DoctorDistanceResponseDTO> getDoctorList(User user) {
-
-
-
         String geohash6=geoHashGeneratorPort.generateGeoHash(user.getLatitude(), user.getLongitude(),6);
         String geohash5=geohash6.substring(0,5);
         logger.info("Geohash Calculated!");
 
-        Set<DoctorLocation>doctors= algorithem.getDoctorNarrowList(user.getDoctorType(),geohash5,geohash6);
+
+       Set<DoctorLocation> availableDoctors= checkAvailability
+               .checkDoctorsForAvailability(
+                       algorithem.getDoctorNarrowList(user.getDoctorType(),geohash5,geohash6));
+
 
          logger.info("Nearest doctor calculated in the geoHash6 and on  its neighbour");
-         if(doctors.size()<10){
+         if(availableDoctors.size()<10){
              logger.info("Nearest doctor calculated in the geoHash5");
-               doctors.addAll(algorithem.getDoctorBroadList(user.getDoctorType(),geohash5));
+               availableDoctors.addAll(checkAvailability.checkDoctorsForAvailability(algorithem.getDoctorBroadList(user.getDoctorType(),geohash5)));
          }
 
 
-         Map<DoctorLocation,Double> sortedDoctorsLocation=doctorRanking.getRanking(user,doctors.stream().toList());
+         Map<DoctorLocation,Double> sortedDoctorsLocation=doctorRanking.getRanking(user,availableDoctors.stream().toList());
          Map<Doctor,Double>sortedDoctor=sortedDoctorsLocation.entrySet().stream().map(entry->Map.entry(
-                 doctorRepositoryPort2.FindDoctor(entry.getKey().getDoctorId())
+                 doctorRepositoryPort2.FindDoctor(entry.getKey().getDoctorId()).get()
                  ,entry.getValue())).collect(Collectors.toMap(
                   Map.Entry::getKey,
                   Map.Entry::getValue,
@@ -70,8 +76,10 @@ import java.util.stream.Collectors;
               responseDTO.setDoctor(
                       doctor
               );
+
               responseDTO.setDistance(sortedDoctor.get(doctor));
-              response.add(responseDTO);
+               responseDTO.setAvailability(availabilityService.getAvailability(doctor.getDoctorId(), LocalDate.now()).get());
+                response.add(responseDTO);
           }
 
           logger.info("UserResponse DTO created!");

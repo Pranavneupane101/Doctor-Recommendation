@@ -8,6 +8,8 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import jakarta.inject.Inject;
 
+import java.util.Optional;
+
 
 @Controller("/availability")
 public class AvailabilityController {
@@ -24,10 +26,9 @@ public class AvailabilityController {
    }
     @Post("/update")
    public HttpResponse<Availability> UpdateAvailability(@Body Availability availability){
-        boolean status=availabilityService.UpdateAvailability(availability);
-        if (status){
-           return HttpResponse.ok(availability);
-
+        Optional<Availability> optional=availabilityService.UpdateAvailability(availability);
+        if (optional.isPresent()){
+           return HttpResponse.ok(optional.get());
         }
         return HttpResponse.notFound();
    }

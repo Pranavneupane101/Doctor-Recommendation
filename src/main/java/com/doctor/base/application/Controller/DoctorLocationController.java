@@ -10,6 +10,8 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import jakarta.inject.Inject;
 
+import java.util.Optional;
+
 
 @Controller("/location")
 
@@ -18,19 +20,15 @@ public class DoctorLocationController {
     DoctorLocationService doctorLocationService;
     @Post("/add")
     public HttpResponse<DoctorLocation> Addlocation(@Body DoctorLocation location){
-        boolean status=doctorLocationService.AddLocation(location);
-        if(status){
-            return HttpResponse.ok(location);
-        }
-        return HttpResponse.notFound(null);
+         doctorLocationService.AddLocation(location);
+         return HttpResponse.ok(location);
     }
     @Put("/update")
     public HttpResponse<DoctorLocation> Updatelocation(@Body DoctorLocation location){
-        boolean status=doctorLocationService.UpdateLocation(location);
-        if(status){
-            return HttpResponse.ok(location);
-
+        Optional<DoctorLocation> updatedLocation= doctorLocationService.UpdateLocation(location);
+        if(updatedLocation.isPresent()){
+            return HttpResponse.ok(updatedLocation.get());
         }
-        return HttpResponse.notFound(null);
+        return HttpResponse.notFound( );
     }
 }

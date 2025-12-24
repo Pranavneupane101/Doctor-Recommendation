@@ -6,6 +6,8 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import jakarta.inject.Inject;
 
+import java.util.Optional;
+
 
 @Controller("/doctor")
 public class DoctorController {
@@ -14,16 +16,16 @@ public class DoctorController {
     @Post("/add")
     public HttpResponse<Doctor>AddDoctor(@Body Doctor doctor){
 
-        boolean status=doctorService.AddDoctor(doctor);
-        if(status){
+        doctorService.AddDoctor(doctor);
+
             return HttpResponse.ok().body(doctor);
-        }
-        return HttpResponse.badRequest();
+
+
     }
     @Put("/update")
     public HttpResponse<Doctor>UpdateDoctor(@Body Doctor doctor){
-        boolean status=doctorService.UpdateDoctor(doctor);
-        if(status){
+        Optional<Doctor> updatedDoctor=doctorService.UpdateDoctor(doctor);
+        if(updatedDoctor.isPresent()){
             return HttpResponse.ok().body(doctor);
 
         }
@@ -31,9 +33,9 @@ public class DoctorController {
     }
     @Post("/get")
     public HttpResponse<Doctor>GetDoctor(@Body FindDoctorDTO dto){
-        Doctor doctor=doctorService.findDoctor(dto.getDoctor_id() );
-        if(doctor!=null){
-            return HttpResponse.ok().body(doctor);
+        Optional<Doctor> doctor=doctorService.findDoctor(dto.getDoctor_id() );
+        if(doctor.isPresent()){
+            return HttpResponse.ok().body(doctor.get());
         }else{
             return HttpResponse.notFound();
         }

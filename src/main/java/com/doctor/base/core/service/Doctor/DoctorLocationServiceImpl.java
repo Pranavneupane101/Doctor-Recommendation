@@ -5,12 +5,19 @@ package com.doctor.base.core.service.Doctor;
 import com.doctor.base.application.Redis.DoctorLocationRedis.DoctorLocationRedisPort;
 import com.doctor.base.application.Repository.Location.LocationRepositoryPort;
 
+import com.doctor.base.core.models.Doctor;
 import com.doctor.base.core.models.DoctorLocation;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import org.slf4j.LoggerFactory;
+
+import java.util.Optional;
+import java.util.logging.Logger;
 
 @Singleton
 public class DoctorLocationServiceImpl implements DoctorLocationService {
+
+    private final Logger logger= Logger.getLogger(DoctorLocationServiceImpl.class.getName());
     @Inject
     LocationRepositoryPort locationRepositoryPort;
 
@@ -19,33 +26,35 @@ public class DoctorLocationServiceImpl implements DoctorLocationService {
     DoctorLocationRedisPort doctorLocationRedisPort;
 
     @Override
-    public boolean AddLocation(DoctorLocation location) {
+    public void AddLocation(DoctorLocation location) {
 
-        boolean repoStatus=locationRepositoryPort.AddLocation(location);
-             if(repoStatus){
+                 locationRepositoryPort.AddLocation(location);
+
 
                  boolean redisstatus=doctorLocationRedisPort.AddLocation(location);
                  if(redisstatus){
-                     System.out.println("Added to the doctor location to redis");
+                      logger.info("Doctor location added in the cache");
                  }else{
-                     System.out.println("Failed to add to doctor location to redis");
+                     logger.info("Doctor location could not be added in the cache");
                  }
-             }
-             return repoStatus;
+
+
         }
 
     @Override
-    public boolean UpdateLocation(DoctorLocation location) {
-        boolean repoStatus = locationRepositoryPort.UpdateLocation(location);
-        if (repoStatus) {
+    public Optional<DoctorLocation> UpdateLocation(DoctorLocation location) {
+         Optional<DoctorLocation> updatedLocation=locationRepositoryPort.UpdateLocation(location);
+        if (updatedLocation.isPresent()) {
 
             if (doctorLocationRedisPort.UpdateLocation(location)) {
-                System.out.println("Updated to the doctor location cach");
+                logger.info("Doctor location updated in the cache");
             } else {
-                System.out.println("Failed to update to doctor location cach");
+                logger.info("Doctor location could not be updated in the cache");
+
             }
+            return  updatedLocation;
         }
-        return repoStatus;
+        return Optional.empty();
     }
 
     @Override

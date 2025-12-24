@@ -10,6 +10,7 @@ import com.doctor.base.core.models.Doctor;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Singleton
@@ -39,12 +40,12 @@ public class DoctorDao {
 
     }
 
-    public boolean updateDoctor(DoctorEntity doctor) {
+    public Optional<DoctorEntity> updateDoctor(DoctorEntity doctor) {
         CqlSession session = cqlConnection.getConnection();
-        DoctorEntity foundDoctor =getDoctorById(doctor.getDoctorId());
+        Optional<DoctorEntity> foundDoctor =getDoctorById(doctor.getDoctorId());
 
-        if(foundDoctor == null) {
-            return false;
+        if(foundDoctor.isEmpty()) {
+            return Optional.empty();
         }
 
 
@@ -73,11 +74,12 @@ public class DoctorDao {
                  doctor.getDoctorId()
         ));
 
-        return true;
+        Optional<DoctorEntity>updatedEntity =getDoctorById(doctor.getDoctorId());
+        return updatedEntity;
     }
 
 
-    public DoctorEntity getDoctorById(String doctorId) {
+    public Optional<DoctorEntity> getDoctorById(String doctorId) {
         CqlSession session = cqlConnection.getConnection();
         String query = "SELECT * FROM doctor WHERE doctor_id = ?";
 
@@ -85,7 +87,7 @@ public class DoctorDao {
                 session.prepare(query).bind(doctorId)
         ).one();
 
-        if (row == null) return null;
+        if (row == null) return Optional.empty();
 
         DoctorEntity doctor = new DoctorEntity();
         doctor.setDoctorId(row.getString("doctor_id"));
@@ -98,7 +100,7 @@ public class DoctorDao {
         doctor.setLongitude(row.getDouble("longitude"));
         doctor.setPhone_no(row.getString("phone_no"));
 
-        return doctor;
+        return Optional.of(doctor);
     }
     public boolean  deleteDoctor(String doctor_id) {
         System.out.println(doctor_id);

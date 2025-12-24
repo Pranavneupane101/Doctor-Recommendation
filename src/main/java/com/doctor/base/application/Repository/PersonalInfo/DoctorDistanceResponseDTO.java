@@ -1,5 +1,6 @@
 package com.doctor.base.application.Repository.PersonalInfo;
 
+import com.doctor.base.core.models.Availability;
 import com.doctor.base.core.models.Doctor;
 import io.micronaut.serde.annotation.Serdeable;
 
@@ -7,6 +8,15 @@ import io.micronaut.serde.annotation.Serdeable;
 public class DoctorDistanceResponseDTO {
     private Doctor doctor;
     private Double Distance;
+    private Availability availability;
+
+    public Availability getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Availability availability) {
+        this.availability = availability;
+    }
 
     public Doctor getDoctor() {
         return doctor;

@@ -11,7 +11,6 @@ import java.util.List;
 @Serdeable
 public class Availability {
     String doctorId;
-    String experties;
     LocalDate date;
     LocalTime availablefrom;
     LocalTime availableTo;
@@ -49,7 +48,7 @@ public class Availability {
         this.availableTo = availableTo;
     }
 
-    public List<LocalTime> getAppointments() {
+     public List<LocalTime> getAppointments() {
         return appointments;
     }
 
@@ -57,13 +56,7 @@ public class Availability {
         this.appointments = appointments;
     }
 
-    public String getExperties() {
-        return experties;
-    }
 
-    public void setExperties(String experties) {
-        this.experties = experties;
-    }
 
 
 

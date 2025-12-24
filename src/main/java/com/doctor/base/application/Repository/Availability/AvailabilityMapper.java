@@ -10,7 +10,8 @@ import com.doctor.base.core.models.Availability;
         availabilityEntity.setAvailableTo(availability.getAvailableTo());
         availabilityEntity.setAvailablefrom(availability.getAvailablefrom());
         availabilityEntity.setDate(availability.getDate());
-        availabilityEntity.setExperties(availability.getExperties());
+        availabilityEntity.setAppointments(availability.getAppointments());
+
 
         return availabilityEntity;
     }
@@ -21,7 +22,7 @@ import com.doctor.base.core.models.Availability;
         availability.setAvailablefrom(availabilityEntity.getAvailablefrom());
         availability.setAvailableTo(availabilityEntity.getAvailableTo());
         availability.setDate(availabilityEntity.getDate());
-        availability.setExperties(availabilityEntity.getExperties());
+        availability.setAppointments(availabilityEntity.getAppointments());
 
         return availability;
     }

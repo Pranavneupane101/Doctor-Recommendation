@@ -5,7 +5,7 @@ import io.micronaut.serde.annotation.Serdeable;
 
 import java.util.Set;
 
-@Serdeable // for restapi
+ @Serdeable // for restapi
 public class Doctor {
     private String doctorId;
     private String doctorDesignation;

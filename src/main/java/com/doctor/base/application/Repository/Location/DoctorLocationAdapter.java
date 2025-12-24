@@ -5,25 +5,25 @@ import com.doctor.base.core.models.DoctorLocation;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
+import javax.xml.stream.Location;
+import java.util.Optional;
+
 @Singleton
   class DoctorLocationAdapter implements LocationRepositoryPort{
     @Inject
     DoctorLocationDao doctorLocationDao;
     @Override
-    public boolean AddLocation(DoctorLocation location) {
-        return doctorLocationDao.AddDoctorLocation(DoctorLocationMapper.toEntity(location));
+    public void AddLocation(DoctorLocation location) {
+          doctorLocationDao.AddDoctorLocation(DoctorLocationMapper.toEntity(location));
     }
 
     @Override
-    public boolean UpdateLocation(DoctorLocation location) {
-        return doctorLocationDao.UpdateDoctorLocation(DoctorLocationMapper.toEntity(location));
+    public Optional<DoctorLocation> UpdateLocation(DoctorLocation location) {
+         Optional<LocationEntity> entity= doctorLocationDao.UpdateDoctorLocation(DoctorLocationMapper.toEntity(location));
+          return entity.map(DoctorLocationMapper::fromEntity);
     }
 
-    @Override
-    public boolean DeleteLocation() {
 
-        return true;
-    }
 
     @Override
     public ResultSet getDoctorNarrowLocations(String experties, String geoHash5, String geoHash6) {

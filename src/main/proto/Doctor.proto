@@ -22,6 +22,10 @@ message UserResponse{
   double longitude=6;
   double distance=7;
   string phone_no=8;
+  string date=9;
+  string available_from=10;
+  string available_to=11;
+  repeated string appointments=12;
 };
 message ListResponse{
   repeated  UserResponse response=1;

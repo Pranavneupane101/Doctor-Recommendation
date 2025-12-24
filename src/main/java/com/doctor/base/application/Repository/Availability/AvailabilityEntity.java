@@ -6,7 +6,6 @@ import java.util.List;
 
   class AvailabilityEntity {
     String doctorId;
-    String experties;
     LocalDate date;
     LocalTime availablefrom;
     LocalTime availableTo;
@@ -21,13 +20,7 @@ import java.util.List;
         this.doctorId = doctorId;
     }
 
-    public String getExperties() {
-        return experties;
-    }
 
-    public void setExperties(String experties) {
-        this.experties = experties;
-    }
 
     public LocalDate getDate() {
         return date;
