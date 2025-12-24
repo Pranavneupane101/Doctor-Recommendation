@@ -51,8 +51,7 @@ import java.util.stream.Collectors;
 
          Map<DoctorLocation,Double> sortedDoctorsLocation=doctorRanking.getRanking(user,doctors.stream().toList());
          Map<Doctor,Double>sortedDoctor=sortedDoctorsLocation.entrySet().stream().map(entry->Map.entry(
-                 doctorRepositoryPort2.FindDoctor(entry.getKey().getDoctorId()
-                          )
+                 doctorRepositoryPort2.FindDoctor(entry.getKey().getDoctorId())
                  ,entry.getValue())).collect(Collectors.toMap(
                   Map.Entry::getKey,
                   Map.Entry::getValue,

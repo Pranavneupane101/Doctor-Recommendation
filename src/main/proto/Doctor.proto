@@ -14,7 +14,6 @@ message userRequest{
 };
 
 message UserResponse{
-
   string designation=1;
   string doctorName=2;
   repeated string experties=3;
@@ -22,6 +21,7 @@ message UserResponse{
   double latitude=5;
   double longitude=6;
   double distance=7;
+  string phone_no=8;
 };
 message ListResponse{
   repeated  UserResponse response=1;

@@ -22,6 +22,7 @@ import java.util.List;
         user.setLatitude(request.getLatitude());
         user.setLongitude(request.getLongitude());
 
+
         return user;
     }
 
@@ -39,6 +40,7 @@ import java.util.List;
                     .setLongitude(dto.getDoctor().getLongitude())
                     .addAllExperties(dto.getDoctor().getExperties())
                     .setExperience(dto.getDoctor().getExperience())
+                           .setPhoneNo(dto.getDoctor().getPhone_no())
                     .build());
         }
 

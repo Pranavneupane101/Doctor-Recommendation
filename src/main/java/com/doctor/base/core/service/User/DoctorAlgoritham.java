@@ -34,7 +34,7 @@ class DoctorAlgoritham {
 
     }
     public Set<DoctorLocation> getDoctorBroadList(String experties, String hashCode5) {
-        //get the list of doctor location in broad aream of (5 digits)
+        //get the list of doctor location in broad area of (5 digits)
 
         Set<DoctorLocation> doctorList = new LinkedHashSet<>();
         doctorList =getdoctors.getDoctorBroadList(experties,hashCode5);

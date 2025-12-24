@@ -29,7 +29,7 @@ public class DoctorMapper {
         doctor.setExperties(doctorEntity.getExperties());
         doctor.setLatitude(doctorEntity.getLatitude());
         doctor.setLongitude(doctorEntity.getLongitude());
-
+        doctor.setPhone_no(doctorEntity.getPhone_no());
         return doctor;
     }
 }
