@@ -79,6 +79,7 @@ import java.util.stream.Collectors;
 
               responseDTO.setDistance(sortedDoctor.get(doctor));
                responseDTO.setAvailability(availabilityService.getAvailability(doctor.getDoctorId(), LocalDate.now()).get());
+              System.out.println(responseDTO);
                 response.add(responseDTO);
           }
 

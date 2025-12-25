@@ -48,7 +48,7 @@ import java.util.UUID;
                 doctor.getHashcode5(),
                 doctor.getExperties(),
                 doctor.getHashcode6(),
-                 doctor.getDoctorId()
+                doctor.getDoctorId()
         )) ;
 
           return getDoctorLocation(doctor.getExperties(),doctor.getHashcode5(),doctor.getHashcode6(),doctor.getDoctorId());
@@ -106,15 +106,15 @@ import java.util.UUID;
 
 
          Row rw= session.execute(session.prepare(query)
-                .bind(geohash5, experties, geohash6,doctorId)).one();
+                .bind(geohash5,experties, geohash6,doctorId)).one();
          if(rw!=null) {
              LocationEntity entity = new LocationEntity();
              entity.setDoctorId(rw.getString("doctorId"));
              entity.setLatitude(rw.getDouble("latitude"));
              entity.setLongitude(rw.getDouble("longitude"));
              entity.setExperties(rw.getString("experties"));
-             entity.setHashcode6(rw.getString("hashcode6"));
-             entity.setHashcode5(rw.getString("hashcode5"));
+             entity.setHashcode6(rw.getString("geohash6"));
+             entity.setHashcode5(rw.getString("geohash5"));
              return Optional.of(entity);
          }else{
              return Optional.empty();

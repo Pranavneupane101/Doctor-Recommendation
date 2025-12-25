@@ -1,11 +1,11 @@
-package com.doctor.base.application.gRPC;
+package com.doctor.base.application.gRPC.UsergRPC;
 
 
 import com.doctor.base.application.Repository.PersonalInfo.DoctorDistanceResponseDTO;
 import com.doctor.base.core.models.User;
 import com.gRPC.doctorRecommendation.ListResponse;
 import com.gRPC.doctorRecommendation.UserResponse;
-import com.gRPC.doctorRecommendation.userRequest;
+import com.gRPC.doctorRecommendation.UsersRequest;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 
   class GRPCMapper {
 
-    public static  User fromgRPC(userRequest request ){
+    public static  User fromgRPC(UsersRequest request ){
         User user = new User();
         user.setUserId(request.getUserId());
         user.setDoctorType(request.getDoctorType());

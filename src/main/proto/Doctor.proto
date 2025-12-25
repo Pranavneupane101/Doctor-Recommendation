@@ -3,7 +3,7 @@ option java_multiple_files= true;
 option java_package="com.gRPC.doctorRecommendation";
 option java_outer_classname="DoctorgRPC";
 
-message userRequest{
+message UsersRequest{
 
   string userId=1;
   string name=2;
@@ -32,6 +32,6 @@ message ListResponse{
 }
 
 service UserService {
-  rpc getDoctors(userRequest) returns(ListResponse);
-
+  rpc getDoctors(UsersRequest) returns(ListResponse);
+  rpc getDoctorLiveLocation(stream UsersRequest)returns(stream ListResponse);
 };

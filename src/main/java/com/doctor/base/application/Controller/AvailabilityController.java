@@ -17,6 +17,7 @@ public class AvailabilityController {
     AvailabilityService availabilityService;
     @Post("/add")
    public HttpResponse<Availability> AddAvailability(@Body Availability availability){
+        availability.getAvailablefrom();
        boolean status=availabilityService.AddAvailability(availability);
        if (status){
            return HttpResponse.ok(availability);

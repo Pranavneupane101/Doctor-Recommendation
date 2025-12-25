@@ -8,6 +8,7 @@ import com.doctor.base.core.models.Availability;
         AvailabilityEntity availabilityEntity = new AvailabilityEntity();
         availabilityEntity.setDoctorId(availability.getDoctorId());
         availabilityEntity.setAvailableTo(availability.getAvailableTo());
+        System.out.println(availability.getAvailablefrom());
         availabilityEntity.setAvailablefrom(availability.getAvailablefrom());
         availabilityEntity.setDate(availability.getDate());
         availabilityEntity.setAppointments(availability.getAppointments());
